@@ -14,8 +14,6 @@ __pycache__/
 # PyCharm
 .idea/
 
-# Bases vectoriales
-data/vector_db/
 
 # Archivos temporales
 *.log
