@@ -9,26 +9,31 @@ from rag.embeddings import crear_embeddings
 load_dotenv()
 
 
-def crear_vectorstore(chunks):
-    """
-    Crea el almacén vectorial en PostgreSQL + pgvector
-    a partir de los chunks.
-    """
+COLLECTION_NAME = "hydrorag_real"
 
-    embeddings = crear_embeddings()
 
-    connection = (
+def obtener_conexion():
+    return (
         f"postgresql+psycopg://"
-        f"{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}"
+        f"{os.getenv('POSTGRES_USER', 'postgres')}:"
+        f"{os.getenv('POSTGRES_PASSWORD')}"
         f"@{os.getenv('POSTGRES_HOST', 'localhost')}:"
         f"{os.getenv('POSTGRES_PORT', '5432')}/"
         f"{os.getenv('POSTGRES_DB', 'hydrorag')}"
     )
 
-    vectorstore = PGVector.from_documents(
-        documents=chunks,
-        embedding=embeddings,
-        collection_name="hydrorag_real",
+
+def crear_vectorstore(chunks):
+    """
+    Conecta con el almacén vectorial PostgreSQL + pgvector.
+    """
+
+    embeddings = crear_embeddings()
+    connection = obtener_conexion()
+
+    vectorstore = PGVector(
+        embeddings=embeddings,
+        collection_name=COLLECTION_NAME,
         connection=connection,
         use_jsonb=True,
     )

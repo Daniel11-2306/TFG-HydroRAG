@@ -265,10 +265,11 @@ with st.sidebar:
 # ============================================================
 # INICIALIZACIÓN DEL RAG
 # ============================================================
+
 @st.cache_resource
 def inicializar_rag():
 
-    documentos = cargar_documentos()
+    documentos, numero_documentos = cargar_documentos()
 
     chunks = dividir_documentos(documentos)
 
@@ -277,43 +278,46 @@ def inicializar_rag():
     numero_paginas = len(documentos)
     numero_chunks = len(chunks)
 
-    return vectorstore, numero_paginas, numero_chunks
+    return (
+        vectorstore,
+        numero_documentos,
+        numero_paginas,
+        numero_chunks
+    )
 
 
 with st.spinner("Inicializando HydroRAG..."):
 
-    vectorstore, numero_paginas, numero_chunks = inicializar_rag()
+    (
+        vectorstore,
+        numero_documentos,
+        numero_paginas,
+        numero_chunks
+    ) = inicializar_rag()
 
 # ============================================================
 # INFORMACIÓN DEL SISTEMA
 # ============================================================
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 
 with col1:
     st.metric(
-        " Documentos",
-        1
+        "Documentos",
+        numero_documentos
     )
 
 with col2:
     st.metric(
-        " Páginas",
+        "Páginas",
         numero_paginas
     )
 
 with col3:
     st.metric(
-        " Fragmentos",
+        "Chunks",
         numero_chunks
     )
-
-with col4:
-    st.metric(
-        " Motor vectorial",
-        "pgvector"
-    )
-
 
 st.write("")
 st.divider()

@@ -1,4 +1,3 @@
-
 from pathlib import Path
 from langchain_community.document_loaders import PyPDFLoader
 
@@ -6,6 +5,10 @@ from langchain_community.document_loaders import PyPDFLoader
 def cargar_documentos(ruta_documentos: str = "data/documents"):
     """
     Carga todos los archivos PDF encontrados en la carpeta indicada.
+
+    Devuelve:
+        documentos: páginas cargadas de todos los PDFs.
+        numero_documentos: cantidad de archivos PDF.
     """
 
     ruta = Path(ruta_documentos)
@@ -34,6 +37,9 @@ def cargar_documentos(ruta_documentos: str = "data/documents"):
 
         print(f"  → {len(paginas)} páginas cargadas")
 
-    print(f"\nTotal de páginas cargadas: {len(documentos)}")
+    numero_documentos = len(archivos_pdf)
 
-    return documentos
+    print(f"\nDocumentos PDF: {numero_documentos}")
+    print(f"Total de páginas cargadas: {len(documentos)}")
+
+    return documentos, numero_documentos
