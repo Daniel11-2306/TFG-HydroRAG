@@ -6,8 +6,7 @@ Sistema multiagente basado en RAG para análisis e interpretación de datos hidr
 
 El proyecto se desarrollará en dos etapas:
 
-- PostgreSQL + pgvector: utilizado como base de datos vectorial para almacenar y recuperar los embeddings de los documentos.
-- PostgreSQL + pgvector: utilizado como arquitectura final para una solución escalable e integración con datos hidrogeológicos.
+- PostgreSQL + pgvector: utilizado como base de datos vectorial para almacenar y recuperar los embeddings de los documentos. Utilizado como arquitectura final para una solución escalable e integración con datos hidrogeológicos.
 
 ## Tecnologías
 
